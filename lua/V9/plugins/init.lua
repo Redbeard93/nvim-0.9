@@ -1,0 +1,5 @@
+require("lazy_bootstrap")
+require("V9.plugins.lazy-nvim")
+vim.schedule(function()
+  require("V9.core.keybindings").setup()
+end)

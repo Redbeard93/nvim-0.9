@@ -1,62 +1,22 @@
---vim.opt.listchars:append("space:⋅")
-vim.opt.listchars:append("eol:↴")
-
-require("indent_blankline").setup({
-  --    show_end_of_line = true,
-  space_char_blankline = " ",
-  show_current_context = true,
-  --    show_current_context_start = true,
-  disable_with_nolist = true,
-  -- filetype_exclude = { "help", "terminal", "packer", "NvimTree", "git", "text" },
-  filetype_exclude = {
-    "lspinfo",
-    "packer",
-    "checkhealth",
-    "man",
-    "help",
-    "terminal",
-    "packer",
-    --"markdown",
-    "git",
-    "text",
-    "txt",
-    "NvimTree",
-    "dashboard",
-    "alpha",
-    "Outline",
-    "TelescopePrompt",
-    "TelescopeResults",
-    "NeogitStatus",
-    "NeogitPopup",
-    "DiffviewFiles",
-    "TelescopePrompt",
-    "TelescopeResults",
-    "",
-    "dbui",
-    "dbout",
-  },
-  buftype_exclude = { "terminal" },
-  use_treesitter = true,
-  context_patterns = {
-    "class",
-    "function",
-    "method",
-    "block",
-    "list_literal",
-    "selector",
-    "^if",
-    "^table",
-    "if_statement",
-    "while",
-    "for",
-  },
-  char_highlight_list = {
-    "IndentBlanklineIndent1",
-    "IndentBlanklineIndent2",
-    "IndentBlanklineIndent3",
-    "IndentBlanklineIndent4",
-    "IndentBlanklineIndent5",
-    "IndentBlanklineIndent6",
-    "IndentBlanklineIndent7",
-  },
-})
+local highlight = {
+    "RainbowRed",
+    "RainbowYellow",
+    "RainbowBlue",
+    "RainbowOrange",
+    "RainbowGreen",
+    "RainbowViolet",
+    "RainbowCyan",
+}
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#F38BA8" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#FAB387" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#F9E2AF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#A6E3A1" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#94E2D5" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#89B4FA" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#C6A0F6" })
+end)
+require("ibl").setup { indent = { highlight = highlight } }

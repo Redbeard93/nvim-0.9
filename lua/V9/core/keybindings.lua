@@ -227,7 +227,7 @@ end
 
 
 -- lsp 回调函数快捷键设置
-M.maplsp = function(client, buffer, null_ls)
+M.maplsp = function(client, buffer)
   vim.api.nvim_buf_set_keymap(buffer, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
   -- rename
   vim.api.nvim_buf_set_keymap(buffer, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
@@ -279,10 +279,6 @@ M.maplsp = function(client, buffer, null_ls)
     opts
   )
 
-  -- -------- null_ls 不支持快捷键不绑定 -------------------------------
-  if null_ls then
-    return
-  end
   -- go xx
   -- mapbuf('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(buffer, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)

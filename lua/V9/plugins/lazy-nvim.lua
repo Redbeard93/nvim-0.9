@@ -596,9 +596,10 @@ require("lazy").setup({
     "iamcco/markdown-preview.nvim",
     lazy = true,
     ft = "markdown",
-    build = "cd app && yarn install",
     config = function()
+      vim.fn["mkdp#util#install"]()
       vim.g.mkdp_page_title = "${name}"
+      vim.g.mkdp_theme = "dark"
     end,
   },
   -- markdown cli 预览插件

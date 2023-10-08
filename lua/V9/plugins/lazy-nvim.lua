@@ -115,14 +115,6 @@ require("lazy").setup({
     "hrsh7th/cmp-nvim-lsp-document-symbol",
     lazy = true,
   },
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    lazy = true,
-    event = { "VeryLazy", "BufNewFile", "BufReadPost" },
-    config = function()
-      require("V9.plugins.config.null-ls")
-    end,
-  },
 
   -- using packer.nvim
  -- {

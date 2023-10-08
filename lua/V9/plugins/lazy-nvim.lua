@@ -608,8 +608,13 @@ require("lazy").setup({
     ft = "markdown",
     config = function()
       require("glow").setup({
+        border = "",
+        pager = false,
         style = "dark",
-        width = 120,
+        width = 80,
+        height = 129.5,
+        width_ratio = 0.618,
+        height_ratio = 0.618,
       })
     end,
   },

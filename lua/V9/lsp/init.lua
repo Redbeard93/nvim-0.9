@@ -86,7 +86,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
       return
     end
     -- 绑定快捷键
-    require("V9.core.keybindings").maplsp(client, bufnr, client.name == "null-ls")
+    require("V9.core.keybindings").maplsp(client, bufnr)
   end,
 })
 

@@ -228,7 +228,7 @@ config['on_attach'] = function(client, buffer)
  -- require('jdtls.dap').setup_dap_main_class_configs({ verbose = true})
 
   -- Mappings.
-  require("V9.core.kmaps").maplsp(client, buffer)
+  require("V9.core.keybindings").maplsp(client, buffer)
 
   local opts = { silent = true, buffer = buffer }
 

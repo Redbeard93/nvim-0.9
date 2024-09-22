@@ -89,28 +89,27 @@ vim.api.nvim_create_autocmd("LspAttach", {
     require("V9.core.keybindings").maplsp(client, bufnr)
   end,
 })
-
-vim.api.nvim_create_augroup("LspAttach_inlay_hint", {})
-vim.api.nvim_create_autocmd("LspAttach", {
-  group = "LspAttach_inlay_hint",
-  callback = function(args)
-    if not (args.data and args.data.client_id) then
-      return
-    end
-
-    local bufnr = args.buf
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-    vim.api.nvim_buf_create_user_command(bufnr, "InlayHint", function()
-      vim.lsp.inlay_hint(0)
-    end, {
-      nargs = 0,
-    })
-    if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-      vim.lsp.inlay_hint(bufnr, true)
-    end
-  end,
-})
+--vim.api.nvim_create_augroup("LspAttach_inlay_hint", {})
+--vim.api.nvim_create_autocmd("LspAttach", {
+--  group = "LspAttach_inlay_hint",
+--  callback = function(args)
+--    if not (args.data and args.data.client_id) then
+--      return
+--    end
+--
+--    local bufnr = args.buf
+--    local client = vim.lsp.get_client_by_id(args.data.client_id)
+--
+--    vim.api.nvim_buf_create_user_command(bufnr, "InlayHint", function()
+--      vim.lsp.inlay_hint(0)
+--    end, {
+--      nargs = 0,
+--    })
+--    if client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+--      vim.lsp.inlay_hint(bufnr, true)
+--    end
+--  end,
+--})
 
 --vim.api.nvim_create_augroup("LspAttach_navic", {})
 --vim.api.nvim_create_autocmd("LspAttach", {

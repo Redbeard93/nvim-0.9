@@ -116,17 +116,6 @@ require("lazy").setup({
     "hrsh7th/cmp-nvim-lsp-document-symbol",
     lazy = true,
   },
-
-  -- using packer.nvim
-  -- {
-  --   "akinsho/bufferline.nvim",
-  --   version = "*",
-  --   event = { "UIEnter" },
-  --   dependencies = { "nvim-tree/nvim-web-devicons" },
-  --   config = function()
-  --     require("V9.plugins.config.bufferline")
-  --   end,
-  -- },
   {
     "famiu/bufdelete.nvim",
     cmd = { "Bdelete" },

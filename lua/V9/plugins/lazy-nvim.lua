@@ -115,17 +115,6 @@ require("lazy").setup({
     "hrsh7th/cmp-nvim-lsp-document-symbol",
     lazy = true,
   },
-
-  -- using packer.nvim
- -- {
- --   "akinsho/bufferline.nvim",
- --   version = "*",
- --   event = { "UIEnter" },
- --   dependencies = { "nvim-tree/nvim-web-devicons" },
- --   config = function()
- --     require("V9.plugins.config.bufferline")
- --   end,
- -- },
   {
     "famiu/bufdelete.nvim",
     cmd = { "Bdelete" },
@@ -396,28 +385,6 @@ require("lazy").setup({
       })
     end,
   },
-
-  -- 异步任务执行插件
---  {
---    "jedrzejboczar/toggletasks.nvim",
---    lazy = true,
---    dependencies = { "akinsho/toggleterm.nvim" },
---    config = function()
---      require("toggletasks").setup({
---        search_paths = {
---          ".tasks",
---          ".toggletasks",
---          ".nvim/toggletasks",
---          ".nvim/tasks",
---        },
---        toggleterm = {
---          close_on_exit = true,
---        },
---      })
---
---      require("telescope").load_extension("toggletasks")
---    end,
---  },
 
   -- 多光标插件
   {
@@ -804,19 +771,6 @@ require("lazy").setup({
     ft = "plantuml",
   },
 
-  -- 浏览器搜索
---  {
---    "lalitmee/browse.nvim",
---    lazy = true,
---    event = { "VeryLazy" },
---    cmd = {
---      "Browse",
---    },
---    config = function()
---      require("V9.plugins.config.browse-nvim")
---    end,
---  },
-
   -- 环绕输入
   {
     "kylechui/nvim-surround",
@@ -827,12 +781,6 @@ require("lazy").setup({
       require("nvim-surround").setup({})
     end,
   },
-
-  --  Create custom submodes and menus
---  {
---    "anuvyklack/hydra.nvim",
---    lazy = true,
---  },
 
   -- 笔记
   {
@@ -936,15 +884,6 @@ require("lazy").setup({
       require("todo-comments").setup({})
     end,
   },
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   enabled = config.plugin.copilot.enable,
-  --   lazy = true,
-  --   cmd = "Copilot",
-  --   config = function()
-  --     require("copilot").setup({})
-  --   end,
-  -- },
   {
     "github/copilot.vim",
     enabled = config.plugin.copilot.enable,

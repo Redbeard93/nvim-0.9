@@ -1,8 +1,9 @@
 local config = require("V9.config")
-local home = vim.loop.os_homedir()
+--local home = vim.loop.os_homedir()
 
 require("lazy").setup({
-
+  spec = {
+    -- add your plugins here
   {
     "nvim-lua/plenary.nvim",
     lazy = true,
@@ -115,6 +116,17 @@ require("lazy").setup({
     "hrsh7th/cmp-nvim-lsp-document-symbol",
     lazy = true,
   },
+
+  -- using packer.nvim
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   version = "*",
+  --   event = { "UIEnter" },
+  --   dependencies = { "nvim-tree/nvim-web-devicons" },
+  --   config = function()
+  --     require("V9.plugins.config.bufferline")
+  --   end,
+  -- },
   {
     "famiu/bufdelete.nvim",
     cmd = { "Bdelete" },
@@ -125,96 +137,6 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     event = { "VeryLazy", "BufNewFile", "BufReadPost" },
     build = ":TSUpdate",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "markdown",
-        },
-        sync_install = false,
-        ignore_install = {},
-
-        highlight = {
-          enable = true,
-          disable = {},
-          additional_vim_regex_highlighting = false,
-        },
-        indent = {
-          enable = true,
-        },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
-          },
-        },
-        textobjects = {
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              ["]m"] = "@function.outer",
-              ["]]"] = { query = "@class.outer", desc = "Next class start" },
-              ["]o"] = "@loop.*",
-              ["]s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-              ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-            },
-            goto_next_end = {
-              ["]M"] = "@function.outer",
-              ["]["] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
-              ["[o"] = "@loop.*",
-              ["[s"] = { query = "@scope", query_group = "locals", desc = "Next scope" },
-              ["[z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-            },
-            goto_previous_end = {
-              ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
-            },
-            goto_next = {
-              ["]d"] = "@conditional.outer",
-            },
-            goto_previous = {
-              ["[d"] = "@conditional.outer",
-            },
-          },
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-              ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
-            },
-            selection_modes = {
-              ["@parameter.outer"] = "v", -- charwise
-              ["@function.outer"] = "V", -- linewise
-              ["@class.outer"] = "<c-v>", -- blockwise
-            },
-            include_surrounding_whitespace = false,
-          },
-          swap = {
-            enable = true,
-            swap_next = {
-              ["<leader>a"] = "@parameter.inner",
-            },
-            swap_previous = {
-              ["<leader>A"] = "@parameter.inner",
-            },
-          },
-        },
-      })
-      -- 开启 Folding see nvim-ufo
-      -- vim.wo.foldmethod = "expr"
-      -- vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
-    end,
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
@@ -247,7 +169,7 @@ require("lazy").setup({
   {
     "rcarriga/nvim-dap-ui",
     lazy = true,
-    dependencies = { "mfussenegger/nvim-dap" },
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     event = { "VeryLazy" },
     config = function()
       require("V9.plugins.config.nvim-dap-ui")
@@ -257,7 +179,7 @@ require("lazy").setup({
     "theHamsta/nvim-dap-virtual-text",
     lazy = true,
     event = { "VeryLazy" },
-    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    dependencies = { "mfussenegger/nvim-dap" },
     config = function()
       require("nvim-dap-virtual-text").setup({})
     end,
@@ -385,6 +307,28 @@ require("lazy").setup({
       })
     end,
   },
+
+  -- 异步任务执行插件
+  --  {
+  --    "jedrzejboczar/toggletasks.nvim",
+  --    lazy = true,
+  --    dependencies = { "akinsho/toggleterm.nvim" },
+  --    config = function()
+  --      require("toggletasks").setup({
+  --        search_paths = {
+  --          ".tasks",
+  --          ".toggletasks",
+  --          ".nvim/toggletasks",
+  --          ".nvim/tasks",
+  --        },
+  --        toggleterm = {
+  --          close_on_exit = true,
+  --        },
+  --      })
+  --
+  --      require("telescope").load_extension("toggletasks")
+  --    end,
+  --  },
 
   -- 多光标插件
   {
@@ -625,10 +569,10 @@ require("lazy").setup({
         dashboard.button("<leader>  ff", "󰈞  Find File", ":Telescope find_files<CR>", opt),
         dashboard.button("<leader>  fg", "󰈭  Find Word  ", ":Telescope live_grep<CR>", opt),
         dashboard.button(
-          "<leader>  fp",
-          "  Recent Projects",
-          ":lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
-          opt
+        "<leader>  fp",
+        "  Recent Projects",
+        ":lua require'telescope'.extensions.project.project{ display_type = 'full' }<CR>",
+        opt
         ),
         dashboard.button("<leader>  fo", "  Recent File", ":Telescope oldfiles<CR>", opt),
         dashboard.button("<leader>  ns", "  Settings", ":e $MYVIMRC | :cd %:p:h <CR>", opt),
@@ -705,6 +649,48 @@ require("lazy").setup({
     lazy = true,
   },
 
+ -- {
+ --   "NTBBloodbath/rest.nvim",
+ --   lazy = true,
+ --   ft = "http",
+ --   init = function()
+ --     local group = vim.api.nvim_create_augroup("V9_jdtls_rest_http", { clear = true })
+ --     vim.api.nvim_create_autocmd({ "FileType" }, {
+ --       group = group,
+ --       pattern = { "http" },
+ --       callback = function(o)
+ --         vim.api.nvim_buf_create_user_command(o.buf, "Http", ":lua require'rest-nvim'.run()", { nargs = 0 })
+ --         vim.api.nvim_buf_create_user_command(o.buf, "HttpCurl", ":lua require'rest-nvim'.run(true)", { nargs = 0 })
+ --         vim.api.nvim_buf_create_user_command(o.buf, "HttpLast", ":lua require'rest-nvim'.last()", { nargs = 0 })
+ --       end,
+ --     })
+ --   end,
+ --   config = function()
+ --     require("rest-nvim").setup({
+ --       -- Open request results in a horizontal split
+ --       result_split_horizontal = false,
+ --       -- Skip SSL verification, useful for unknown certificates
+ --       skip_ssl_verification = false,
+ --       -- Highlight request on run
+ --       highlight = {
+ --         enabled = true,
+ --         timeout = 150,
+ --       },
+ --       result = {
+ --         -- toggle showing URL, HTTP info, headers at top the of result window
+ --         show_url = true,
+ --         show_http_info = true,
+ --         show_headers = true,
+ --       },
+ --       -- Jump to request line on run
+ --       jump_to_request = false,
+ --       env_file = ".env",
+ --       custom_dynamic_variables = {},
+ --       yank_dry_run = true,
+ --     })
+ --   end,
+ -- },
+
   -- 选中高亮插件
   {
     "RRethy/vim-illuminate",
@@ -771,6 +757,19 @@ require("lazy").setup({
     ft = "plantuml",
   },
 
+  -- 浏览器搜索
+  --  {
+  --    "lalitmee/browse.nvim",
+  --    lazy = true,
+  --    event = { "VeryLazy" },
+  --    cmd = {
+  --      "Browse",
+  --    },
+  --    config = function()
+  --      require("V9.plugins.config.browse-nvim")
+  --    end,
+  --  },
+
   -- 环绕输入
   {
     "kylechui/nvim-surround",
@@ -781,6 +780,12 @@ require("lazy").setup({
       require("nvim-surround").setup({})
     end,
   },
+
+  --  Create custom submodes and menus
+  --  {
+  --    "anuvyklack/hydra.nvim",
+  --    lazy = true,
+  --  },
 
   -- 笔记
   {
@@ -859,7 +864,63 @@ require("lazy").setup({
     event = "VeryLazy",
     config = function()
       require("chatgpt").setup({
-        api_key_cmd = "gpg --decrypt " .. home .. "/Documents/nvim_api/nvim_api.gpg",
+        chat = {
+          welcome_message = WELCOME_MESSAGE,
+          loading_text = "Loading, please wait ...",
+          question_sign = "", -- 🙂
+          answer_sign = "ﮧ", -- 🤖
+          max_line_length = 120,
+          sessions_window = {
+            border = {
+              style = "rounded",
+              text = {
+                top = " Sessions ",
+              },
+            },
+            win_options = {
+              winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+            },
+          },
+          keymaps = {
+            close = { "<C-c>" },
+            yank_last = "<C-y>",
+            yank_last_code = "<C-k>",
+            scroll_up = "<C-u>",
+            scroll_down = "<C-d>",
+            new_session = "<C-n>",
+            cycle_windows = "<Tab>",
+            cycle_modes = "<C-f>",
+            next_message = "<C-j>",
+            prev_message = "<C-k>",
+            select_session = "<Space>",
+            rename_session = "r",
+            delete_session = "d",
+            draft_message = "<C-d>",
+            edit_message = "e",
+            delete_message = "d",
+            toggle_settings = "<C-o>",
+            toggle_message_role = "<C-r>",
+            toggle_system_role_open = "<C-s>",
+            stop_generating = "<C-x>",
+          },
+        },
+        popup_input = {
+          prompt = "  ",
+          border = {
+            highlight = "FloatBorder",
+            style = "rounded",
+            text = {
+              top_align = "center",
+              top = " Prompt ",
+            },
+          },
+          win_options = {
+            winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+          },
+          submit = "<C-p>",
+          submit_n = "<Enter>",
+          max_visible_lines = 20,
+        },
         openai_params = {
           model = "gpt-3.5-turbo",
           frequency_penalty = 0,
@@ -892,16 +953,22 @@ require("lazy").setup({
       vim.g.copilot_no_tab_map = true
       vim.cmd('imap <silent><script><expr> <C-C> copilot#Accept("")')
       vim.cmd([[
-			let g:copilot_filetypes = {
-	       \ 'TelescopePrompt': v:false,
-	     \ }
-			]])
-    end,
-  },
-}, {
-  ui = {
-    icons = {
-      task = "✓ ",
+      let g:copilot_filetypes = {
+        \ 'TelescopePrompt': v:false,
+        \ }
+        ]])
+      end,
+    },
+  }, {
+    ui = {
+      icons = {
+        task = "✓ ",
+      },
     },
   },
-})
+  -- Configure any other settings here. See the documentation for more details.
+  -- colorscheme that will be used when installing plugins.
+  install = { colorscheme = { "habamax" } },
+  -- automatically check for plugin updates
+  checker = { enabled = true },
+  })

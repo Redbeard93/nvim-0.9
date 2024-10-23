@@ -273,12 +273,7 @@ M.setup = function()
   -- au BufReadCmd jdt://* lua require('jdtls').open_jdt_link(vim.fn.expand('<amatch>'))
   -- command! JdtWipeDataAndRestart lua require('jdtls.setup').wipe_data_and_restart()
   -- command! JdtShowLogs lua require('jdtls.setup').show_logs()
-  vim.api.nvim_create_autocmd({ "BufReadCmd" }, {
-    pattern = "jdt://*",
-    callback = function(e)
-      require("jdtls").open_jdt_link(e.file)
-    end,
-  })
+
   vim.api.nvim_create_user_command("JdtWipeDataAndRestart", "lua require('jdtls.setup').wipe_data_and_restart()", {})
   vim.api.nvim_create_user_command("JdtShowLogs", "lua require('jdtls.setup').show_logs()", {})
 

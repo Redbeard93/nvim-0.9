@@ -128,6 +128,9 @@ M.setup = function()
 
   -- excutable
   keymap('n', '<leader>x', '<cmd>!chmod +x %<CR>', opts)
+  
+  -- inlay_hint
+  vim.keymap.set("n", "<leader>ih", function () vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
 
                       ------- plugins -------

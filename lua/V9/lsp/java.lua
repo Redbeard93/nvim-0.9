@@ -115,6 +115,9 @@ local config = {
             downloadSources = true,
             updateSnapshots = true,
           },
+          inlayhints = {
+            parameterNames = { enabled = "ALL" },
+          },
           templates = {
             fileHeader = {
               "/**",

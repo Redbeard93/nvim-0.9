@@ -33,6 +33,15 @@ local lsp_ui = require("V9.lsp.lsp_ui")
 cmp.setup({
   enabled = function()
     return vim.api.nvim_get_option_value( "buftype", { buf = 0 }) ~= "prompt" or require("cmp_dap").is_dap_buffer()
+    -- disable completion in comments
+      local context = require 'cmp.config.context'
+      -- keep command mode completion enabled when cursor is in a comment
+      if vim.api.nvim_get_mode().mode == 'c' then
+        return true
+      else
+        return not context.in_treesitter_capture("comment") 
+          and not context.in_syntax_group("Comment")
+      end
   end,
   window = {
     completion = cmp.config.window.bordered({

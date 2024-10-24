@@ -32,7 +32,7 @@ local menu = {
 local lsp_ui = require("V9.lsp.lsp_ui")
 cmp.setup({
   enabled = function()
-    return vim.api.nvim_get_option_value( 'buf', {} ) ~= "prompt" or require("cmp_dap").is_dap_buffer()
+    return vim.api.nvim_get_option_value( 'buftype', {} ) ~= "prompt" or require("cmp_dap").is_dap_buffer()
   end,
   window = {
     completion = cmp.config.window.bordered({

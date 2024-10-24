@@ -7,5 +7,10 @@ return {
       vim.keymap.set("n", "<leader>dm", dap_py.test_method, opts)
       vim.keymap.set("v", "<leader>ds", dap_py.debug_selection, opts)
     end,
+    settings = {
+      python = {
+        inlayHints = true
+      }
+    }
   },
 }

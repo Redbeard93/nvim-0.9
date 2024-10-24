@@ -217,12 +217,13 @@ require("lazy").setup({
     lazy = true,
   },
   {
-    "nvim-telescope/telescope-fzf-native.nvim", 
+    'nvim-telescope/telescope-fzf-native.nvim', 
+    -- build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' --on windows
         -- on windows should go to nvim-data/telescope-fzf-native.nvim run these three command
         -- cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release
         -- cmake --build build --config Release
         -- cmake --install build --prefix build
-    build = "make",
+    build = "make", -- on linux
     lazy = true,
   },
   {

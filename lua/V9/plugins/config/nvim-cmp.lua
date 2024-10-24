@@ -8,8 +8,9 @@ local function sorting()
     cmp.config.compare.offset,
     -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
     cmp.config.compare.exact,
-    cmp.config.compare.score,
     cmp.config.compare.recently_used,
+    require("clangd_extensions.cmp_scores"),
+    cmp.config.compare.score,
     cmp.config.compare.locality,
     cmp.config.compare.kind,
     cmp.config.compare.length,

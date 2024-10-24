@@ -13,7 +13,7 @@ mason_lspconfig.setup({
 local server_configs = {
   lua_ls = require("V9.lsp.lua_ls"),
   clangd = require("V9.lsp.clangd"),
-  pyright = require("V9.lsp.pyright"),
+  pylyzer = require("V9.lsp.pylyzer"),
   rust_analyzer = require("V9.lsp.rust_analyzer"),
   gopls = require("V9.lsp.gopls"),
   jdtls = require("V9.lsp.java"),
